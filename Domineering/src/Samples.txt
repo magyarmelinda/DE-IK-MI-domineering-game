@@ -1,0 +1,48 @@
+N = 4 TEST CASES
+- - - - - - - -
+BOARD:
+O _ _ O
+O P P O
+P P _ _
+_ _ _ _
+
+BOARD:
+P P O _
+_ _ O _
+_ _ P P
+_ _ _ _
+
+BOARD:
+O O _ _
+O O P P
+_ _ _ _
+P P _ _
+
+BOARD:
+_ _ O O
+P P O O
+_ _ P P
+_ _ P P
+
+
+N = 3 TEST CASES
+- - - - - - - - 
+BOARD:
+P P _
+_ _ _
+_ _ _
+
+BOARD:
+O O _
+O O _
+P P _
+
+BOARD:
+O _ _
+O _ _
+_ _ _
+
+BOARD:
+P P O
+_ _ O
+_ _ _
