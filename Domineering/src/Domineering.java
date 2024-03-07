@@ -2,22 +2,22 @@
  *
  * @author Magyar Melinda Barbara
  */
+
 public class Domineering {
-    
     private static char[][] board; // game board
     
     private static final int N = 3; // the size of the board
     private static final char EMPTY = '_'; // empty cell
     
-    private static final char PLAYER = 'P'; // the player
-    private static final char OPPONENT = 'O'; // the opponent
+    private static final char PLAYER = 'P'; 
+    private static final char OPPONENT = 'O';
 
     // the constructor
     public Domineering(char[][] board) {
         this.board = new char[N][N];
         
-        for(int i = 0; i < N; i++) 
-            for(int j = 0; j < N; j++) 
+        for (int i = 0; i < N; i++) 
+            for (int j = 0; j < N; j++) 
                 this.board[i][j] = board[i][j];
     }
 
@@ -29,9 +29,9 @@ public class Domineering {
         
         for (int i = 0; i < N; i++) 
             for (int j = 0; j < N; j++) {
-                if(board[i][j] == PLAYER)
+                if (board[i][j] == PLAYER)
                     player++;
-                else if(board[i][j] == OPPONENT)
+                else if (board[i][j] == OPPONENT)
                     opponent++;
             }
               
@@ -45,13 +45,13 @@ public class Domineering {
     public static boolean hasMovesLeft(char[][] board) {
         int row = 0, column = 0;
         
-        if(whoIsNext(board))
+        if (whoIsNext(board))
             column = 1;
         else row = 1;
         
         for (int i = 0; i < N - column; i++) 
             for (int j = 0; j < N - column; j++) 
-                if(board[i][j] == EMPTY && board[i + row][j + column] == EMPTY)
+                if (board[i][j] == EMPTY && board[i + row][j + column] == EMPTY)
                     return true;
         
         return false;
@@ -59,16 +59,16 @@ public class Domineering {
     
     // function to place the domino vertically
     // or horizontally on the gameboard
-    // x1 = sor, y1 = oszlop
-    // x2 = másik sor, y2 = másik oszlop
+    // x1 = row, y1 = column
+    // x2 = next row, y2 = next column
     private static boolean putDomino(char[][] board, int x1, int y1, int x2, int y2) {
-        if(N <= (x1 + 1) || N <= (y1 + 1) || board[x1 + 1][y1] != '_' || board[x1][y1 + 1] != '_' || board[x1][y1] != '_' )
+        if (N <= (x1 + 1) || N <= (y1 + 1) || board[x1 + 1][y1] != '_' || board[x1][y1 + 1] != '_' || board[x1][y1] != '_' )
             return false;
 
-        if(whoIsNext(board)){
+        if (whoIsNext(board)){
             board[x1][y1] = PLAYER;
             board[x2][y2] = PLAYER;
-        }   else{
+        }   else {
             board[x1][y1] = OPPONENT;
             board[x2][y2] = OPPONENT;
         }
@@ -77,10 +77,10 @@ public class Domineering {
     }
     
     // function to delete a domino from the board
-    // x1 = sor, y1 = oszlop
-    // x2 = másik sor, y2 = másik oszlop
+    // x1 = row, y1 = column
+    // x2 = next row, y2 = next column
     private static void deleteDomino(char[][] board, int x1, int y1, int x2, int y2) {
-        if(x1 >= 0 && x1 < N - 1  && y1 >= 0 && y1 < N - 1) {
+        if (x1 >= 0 && x1 < N - 1  && y1 >= 0 && y1 < N - 1) {
             board[x1][y1] = EMPTY;
             board[x2][y2] = EMPTY;
         }
@@ -91,9 +91,9 @@ public class Domineering {
     // if the OPPONENT is next: -10
     // if there is no solution: 0 
     private static int evaluateBoard (char[][] board) {
-        if(whoIsNext(board) && !hasMovesLeft(board))
-            return +10; // EZ MÁSHOGY VAN NEKI
-        else if(!whoIsNext(board) && !hasMovesLeft(board))
+        if (whoIsNext(board) && !hasMovesLeft(board))
+            return +10;
+        else if (!whoIsNext(board) && !hasMovesLeft(board))
             return -10;
         
         return 0; 
@@ -102,24 +102,24 @@ public class Domineering {
     private static int miniMax(char[][] board, boolean isMax) {
         int value = evaluateBoard(board);
         
-        if(value == 10 || value == -10) 
+        if (value == 10 || value == -10) 
             return value;
         
         // Max case
-        if(isMax) {
+        if (isMax) {
             int bestValue = Integer.MIN_VALUE;
             
             for (int row = 0; row < N; row++) 
                 for (int column = 0; column < N; column++) {
                     // check if there is any empty cell left
-                    if(board[row][column] == EMPTY) {
+                    if (board[row][column] == EMPTY) {
                         // if found; try to replace it vertically or horizontally
                         // with the possible domino, check best value then remove the domino
-                        if(putDomino(board, row, column, row + 1, column)) {
+                        if (putDomino(board, row, column, row + 1, column)) {
                             bestValue = Math.max(bestValue, miniMax(board, !isMax));
                             
                             deleteDomino(board, row, column, row + 1, column);
-                        } else if(putDomino(board, row, column, row, column + 1)) {
+                        } else if (putDomino(board, row, column, row, column + 1)) {
                             bestValue = Math.max(bestValue, miniMax(board, !isMax));
                             
                             deleteDomino(board, row, column, row, column + 1);
@@ -135,14 +135,14 @@ public class Domineering {
             for (int row = 0; row < N; row++) 
                 for (int column = 0; column < N; column++) {
                     // check if there is any empty cell left
-                    if(board[row][column] == EMPTY) {
+                    if (board[row][column] == EMPTY) {
                         // if found; try to replace it vertically or horizontally
                         // with the possible domino, check best value then remove the domino
-                        if(putDomino(board, row, column, row + 1, column)) {
+                        if (putDomino(board, row, column, row + 1, column)) {
                             bestValue = Math.min(bestValue, miniMax(board, isMax));
                             
                             deleteDomino(board, row, column, row + 1, column);      
-                        } else if(putDomino(board, row, column, row, column + 1)) {
+                        } else if (putDomino(board, row, column, row, column + 1)) {
                             bestValue = Math.min(bestValue, miniMax(board, isMax));
                             
                             deleteDomino(board, row, column, row, column + 1);
@@ -162,23 +162,23 @@ public class Domineering {
         for (int i = 0; i < N; i++) 
             for (int j = 0; j < N; j++) {
                 // check if there is any empty cell left
-                if(board[i][j] == EMPTY) {
+                if (board[i][j] == EMPTY) {
                     // if found try to find the best move
-                    if(putDomino(board, i, j, i + 1, j)) {
+                    if (putDomino(board, i, j, i + 1, j)) {
                         int moveValue = miniMax(board, false);
                         deleteDomino(board, i, j, i + 1, j);
                         
-                        if(moveValue > bestValue) {
+                        if (moveValue > bestValue) {
                             row = i;
                             column = j;
                             bestValue = moveValue;
                         }
                         
-                    } else if(putDomino(board, i, j, i, j + 1)) {
+                    } else if (putDomino(board, i, j, i, j + 1)) {
                         int moveValue = miniMax(board, false);
                         deleteDomino(board, i, j, i, j + 1);
                         
-                        if(moveValue > bestValue) {
+                        if (moveValue > bestValue) {
                             row = i;
                             column = j;
                             bestValue = moveValue;

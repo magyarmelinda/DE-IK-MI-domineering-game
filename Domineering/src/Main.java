@@ -2,11 +2,12 @@
  *
  * @author Magyar Melinda Barbara
  */
+
 public class Main {
     
     public static void main(String[] args) {
         
-        // Starting grid which can be manually set for testing
+        // starting grid which can be manually set for testing
         char[][] board = new char[][] {            
             {'_', '_', '_'},
             {'O', '_', '_'},
@@ -16,8 +17,8 @@ public class Main {
         Domineering domineering = new Domineering(board);
         System.out.println(domineering.toString());
         
-        if(Domineering.hasMovesLeft(board)) {
-            if(Domineering.whoIsNext(board))
+        if (Domineering.hasMovesLeft(board)) {
+            if (Domineering.whoIsNext(board))
                 System.out.println("PLAYER is the next one.\nHorizontal move.");
             else System.out.println("OPPONENT is the next one.\nVertical move.");
             
@@ -27,4 +28,5 @@ public class Main {
             System.out.println(Domineering.whoIsNext(board) ? "OPPONENT won." : "PLAYER won.");
         }
     }
+    
 }
