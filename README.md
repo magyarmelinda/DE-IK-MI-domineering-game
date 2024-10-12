@@ -5,7 +5,7 @@ Learn more [here](https://en.wikipedia.org/wiki/Domineering).
 
 ## Info
 A Java program designed to solve the Domineering game using AI.  
-It was created as an assignment for the "The Basics of Artificial Intelligence" course at the University of Debrecen. 
+It was created as an assignment for the 'Basics of Artificial Intelligence' course at the University of Debrecen.
 
 The solution utilizes the minimax algorithm.  
 The game is not working 100%. There are instances where the outcome is incorrect.
